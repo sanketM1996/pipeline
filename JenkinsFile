@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git credentialsId: 'git_creds', branch: 'main', url: 'https://<Your Private Repository URL>'
+                git credentialsId: 'git_creds', branch: 'main', url: 'https://github.com/sanketM1996/SuperLabCode.git'
             }
         }
 
