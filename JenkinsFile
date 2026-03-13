@@ -6,18 +6,22 @@ pipeline {
     }
 
     stages {
+
         stage('Checkout Code') {
             steps {
-                git credentialsId: 'git_creds', branch: 'main', url: 'https://github.com/sanketM1996/SuperLabCode.git'
+                git credentialsId: 'git_creds',
+                branch: 'main',
+                url: 'https://github.com/sanketM1996/SuperLabCode.git'
             }
         }
 
         stage('Maven Build') {
             steps {
                 echo 'Building project'
-                sh "${MAVEN_HOME}/bin/mvn clean verify -Dtest=!FormUITest"
+                bat "${MAVEN_HOME}\\bin\\mvn clean verify -Dtest=!FormUITest"
             }
         }
+
     }
 
     post {
