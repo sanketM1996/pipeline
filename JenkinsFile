@@ -2,33 +2,30 @@ pipeline {
     agent any
 
     environment {
-        // Add variables here if needed, like GIT_REPO = 'https://...'
+        MAVEN_HOME = tool 'MAVEN'
     }
 
     stages {
-        stage('Stage 1 - Name Here') {
+        stage('Checkout Code') {
             steps {
-                echo "🛠️ Step description here"
-                // Commands here (e.g., git, sh, etc.)
+                git credentialsId: 'git_creds', branch: 'main', url: 'https://<Your Private Repository URL>'
             }
         }
 
-        stage('Stage 2 - Name Here') {
+        stage('Maven Build') {
             steps {
-                echo "🔍 Step description here"
-                // Commands here
+                echo 'Building project'
+                sh "${MAVEN_HOME}/bin/mvn clean verify -Dtest=!FormUITest"
             }
         }
-
-        // ➕ Add more stages as needed
     }
 
     post {
         success {
-            echo "✅ Pipeline completed successfully!"
+            echo '✅ Build pipeline completed successfully!'
         }
         failure {
-            echo "❌ Pipeline failed. Please check the logs."
+            echo '❌ Pipeline failed. Please check the logs.'
         }
     }
 }
